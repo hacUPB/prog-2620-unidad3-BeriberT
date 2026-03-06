@@ -26,3 +26,7 @@ print("Precio final del juego:", precio_final)
 print("¿Cumple la edad mínima?:", cumple_edad)
 print("¿Tiene saldo suficiente?:", tiene_saldo)
 print("¿La compra es exitosa?:", compra_exitosa)
+
+#hemos de ir de un lado a otro
+ 
+ 

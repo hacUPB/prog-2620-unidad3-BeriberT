@@ -1,9 +1,105 @@
-Wayne Glausser: 
-Este artículo analiza el rol de la música rock en la contracultura de los 60, enfocándose en Jefferson Airplane y "Volunteers" como ejemplo de retórica revolucionaria. Compara la canción con el movimiento contracultural al destacar cómo invoca la unidad racial y la rebelión contra el establishment, posicionando a la juventud como "voluntarios de América" en una lucha contra la guerra y el racismo, similar a cómo el PDF describe la contracultura como una corriente subterránea paralela al eje ortodoxo
+**Datos de entrada**
+|nombre|descripcion|
+|------|-----------|
+|combustible actual|combustible inicial del vuelo|
+|distancia|distancia del tramo|
+|viento|tipo de viento|
+||
 
-(Ensayo académico, Universidad de Edimburgo):
-Este paper examina Woodstock como epicentro de la contracultura, comparando "Volunteers" con el movimiento al resaltar su llamado a la revolución juvenil ("Got a revolution") como forma de emancipación contra normas opresivas. Enfatiza cómo la canción refleja la protesta anti-guerra y la unidad comunal, contrastándola con la fragmentación contracultural, alineado con la crítica del PDF a instituciones alienantes y la inversión de la causalidad marxista (pp. 7-9).
+**Datos de salida**
+|nombre|descripcion|
+|------|-----------|
+|consumo|consumo del tramo|
+|combustible_actual|combustible restante|
+|ALERTA CRITICA|	Mensaje de combustible insuficiente para continuar el vuelo|
+|Combustible insuficiente para continuar|mensaje que informa que el combustible proyectado está por debajo de la reserva legal|
+|Se debe aterrizar en el aeropuerto alterno|muestra una advertencia al piloto para realizar un aterrizaje en un aeropuerto alterno|
+|El vuelo fue exitoso. Se llego al destino con combustible seguro|myestra al piloto que el vuelo terminó correctamente|
+|El vuelo fue abortado por seguridad|muestra al piloto que el vuelo se debe cancelar por insuficiencia de combustible|
+||
 
-(Universidad de Graz)
+**Tabla de constantes**
+|nombre|descripcion|valor|
+|-|-|-|
+|CONSUMO_BASE|consumo del combustible|2.8|
+|FACTOR_HEADWIND|factor de aumento de consumo por viento en contra|1.18|
+|FACTOR_TAILWIND|factor de reduccion de consumo por viento a favor|0.88|
+|RESERVA_LEGAL|reserva minima de combustible que debe llevar el avion|1500|
+||
 
-Este trabajo discute el "San Francisco Sound" en la contracultura, comparando "Volunteers" con movimientos como el anti-guerra y el hippie, viéndola como un himno de rebelión generacional ("One generation got soul") que promueve la paz y la tolerancia contra el capitalismo. Relaciona la canción con definiciones de contracultura como rechazo a normas mainstream, eco del origen del rock en el "grito" de protesta del PDF (p. 5) y la identidad juvenil como "pueblo" (p. 4).
+**Tabla de vriables**
+|nombre|descripcion|
+|------|-----------|
+|combustible actual|combustible inicial del vuelo|
+|distancia|distancia del tramo|
+|viento|tipo de viento|
+|combustible_proyectado|combustible estimado despues de cada tramo del vuelo|
+|consumo|combustible que se consume en cada tramo|
+|vuelo_exitoso|informa si el vuelo finalizo con normalidad o se aborto por seguridad|
+||
+
+.
+
+.
+
+.
+
+```
+inicio
+
+CONSUMO_BASE = 2.8                                                                                             
+FACTOR_HEADWIND = 1.18
+FACTOR_TAILWIND = 0.88
+RESERVA_LEGAL = 1500
+
+Escribir "Ingrese combustible inicial (kg): "
+Leer combustible_actual
+
+vuelo_exitoso = Verdadero
+
+Para tramo = 1 Hasta 5 Hacer
+
+    Escribir "--- Tramo ", tramo, " ---"
+
+    Escribir "Distancia del tramo (km): "
+    Leer distancia
+
+    Escribir "Tipo de viento (headwind / tailwind / cruzado): "
+    Leer viento
+
+    consumo = distancia * CONSUMO_BASE
+
+    Si viento = "headwind" Entonces
+        consumo <- consumo * FACTOR_HEADWIND
+    Sino
+        Si viento = "tailwind" Entonces
+            consumo = consumo * FACTOR_TAILWIND
+        FinSi
+    FinSi
+
+    combustible_proyectado = combustible_actual - consumo
+
+    Si combustible_proyectado <= RESERVA_LEGAL Entonces
+       Escribir "ALERTA CRITICA"
+       Escribir "Combustible insuficiente para continuar."
+       Escribir "Se debe aterrizar en el aeropuerto alterno."
+
+    vuelo_exitoso <- Falso
+    Salir
+    FinSi
+
+    combustible_actual = combustible_actual - consumo
+
+    Escribir "Consumo del tramo: ", consumo
+    Escribir "Combustible restante: ", combustible_actual
+
+FinPara
+
+Si vuelo_exitoso = Verdadero Entonces
+    Escribir "El vuelo fue exitoso. Se llego al destino con combustible seguro."
+Sino
+    Escribir "El vuelo fue abortado por seguridad."
+FinSi
+
+Fin
+```
